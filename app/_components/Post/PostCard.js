@@ -1,9 +1,13 @@
-
+"use client"
 import Card from "../Card";
 import Avatar from '@mui/material/Avatar';
 import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
+import { LENS_HUB_CONTRACT_ADDRESS } from '../../_queries/queries'
+import LENSHUB from '../../_abis/lenshub.json'
+import { ethers } from 'ethers';
 
 export default function PostCard({ id, content, name, image }) {
+
   const parseImageUrl = (profile) => {
     if (profile) {
       const url = profile.picture?.original?.url;
@@ -16,6 +20,24 @@ export default function PostCard({ id, content, name, image }) {
 
     return "/default-avatar.png";
   };
+
+  const followUser = async (id, name) => {
+    try {
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const contract = new ethers.Contract(
+        LENS_HUB_CONTRACT_ADDRESS,
+        LENSHUB,
+        provider.getSigner()
+      );
+      const tx = await contract.follow([parseInt(id)], [0x0]);
+      await tx.wait();
+
+      alert(`Followed ${name}`)
+    } catch (err) {
+      console.log(err)
+    }
+
+  }
   return (
     <Card>
 
@@ -35,8 +57,8 @@ export default function PostCard({ id, content, name, image }) {
 
         </div>
         <div className="relative">
-          <button className="text-gray-400" >
-           <PersonAddAltIcon />
+          <button onClick={() => followUser(id, name)} className="text-gray-400" >
+            <PersonAddAltIcon />
           </button>
 
 

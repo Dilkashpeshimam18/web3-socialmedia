@@ -1,29 +1,29 @@
 "use client"
 
-import { useState,useEffect } from "react";
-import SuggestionCard from "./Profile/ProfileSuggestionCard";
-import { urlClient, recommendedProfile } from '../_queries/queries'
+// import { useState,useEffect } from "react";
+import NavigationCard from "./Navigation/NavigationCard";
+// import { urlClient, recommendedProfile } from '../_queries/queries'
 
 export default function Layout({ children, hideNavigation }) {
-  const [profiles, setProfiles] = useState([])
+  // const [profiles, setProfiles] = useState([])
 
-  const getRecommendedProfiles = async () => {
-    try {
-      const response = await urlClient
-        .query(recommendedProfile)
-        .toPromise();
+  // const getRecommendedProfiles = async () => {
+  //   try {
+  //     const response = await urlClient
+  //       .query(recommendedProfile)
+  //       .toPromise();
 
-        console.log(response)
-      const profiles = response?.data.recommendedProfiles;
-      console.log('Getting all recommend profile>>>', profiles)
-    } catch (err) {
-      console.log(err)
-    }
-  }
+  //       console.log(response)
+  //     const profiles = response?.data.recommendedProfiles;
+  //     console.log('Getting all recommend profile>>>', profiles)
+  //   } catch (err) {
+  //     console.log(err)
+  //   }
+  // }
 
-  useEffect(()=>{
-    getRecommendedProfiles()
-  },[])
+  // useEffect(()=>{
+  //   getRecommendedProfiles()
+  // },[])
 
 
   let rightColumnClasses = '';
@@ -36,7 +36,7 @@ export default function Layout({ children, hideNavigation }) {
     <div className="md:flex mt-6 max-w-4xl mx-auto gap-6 mb-24 md:mb-0 bg-white">
       {!hideNavigation && (
         <div className="fixed md:static w-full bottom-0 md:w-3/12 -mb-5">
-          <SuggestionCard />
+          <NavigationCard/>
         </div>
       )}
       <div className={rightColumnClasses}>
@@ -46,10 +46,3 @@ export default function Layout({ children, hideNavigation }) {
   );
 }
 
-export async function getServerSideProps() {
-  const response = await urlClient.query(recommendedProfile).toPromise();
-
-  return {
-    props: { profiles: response?.data.recommendedProfiles },
-  };
-}

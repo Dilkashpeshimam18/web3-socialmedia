@@ -16,7 +16,7 @@
     "@mui/material": "^5.14.15",
     "@reduxjs/toolkit": "^1.9.7",
     "@urql/core": "^4.1.4",
-    "ethers": "^6.8.0",
+    "ethers": "^5.7.2",
     "graphql": "^16.8.1",
     "next": "14.0.0",
     "react": "^18",

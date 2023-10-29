@@ -33,7 +33,7 @@ export default function Home() {
       {
         posts.length > 0 && posts.map((post) => {
           return (
-            <PostCard key={post?.id} image={post?.profile?.metadata} name={post?.profile?.handle} content={post?.metadata?.content} />
+            <PostCard key={post?.id} id={post?.id} image={post?.profile?.metadata} name={post?.profile?.handle} content={post?.metadata?.content} />
 
           )
         })
