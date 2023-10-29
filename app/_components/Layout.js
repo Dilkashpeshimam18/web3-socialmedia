@@ -1,7 +1,31 @@
-import NavigationCard from "./NavigationCard";
-import SuggestionCard from "./ProfileSuggestionCard";
+"use client"
+
+import { useState,useEffect } from "react";
+import SuggestionCard from "./Profile/ProfileSuggestionCard";
+import { urlClient, recommendedProfile } from '../_queries/queries'
 
 export default function Layout({ children, hideNavigation }) {
+  const [profiles, setProfiles] = useState([])
+
+  const getRecommendedProfiles = async () => {
+    try {
+      const response = await urlClient
+        .query(recommendedProfile)
+        .toPromise();
+
+        console.log(response)
+      const profiles = response?.data.recommendedProfiles;
+      console.log('Getting all recommend profile>>>', profiles)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  useEffect(()=>{
+    getRecommendedProfiles()
+  },[])
+
+
   let rightColumnClasses = '';
   if (hideNavigation) {
     rightColumnClasses += 'w-full';
@@ -20,4 +44,12 @@ export default function Layout({ children, hideNavigation }) {
       </div>
     </div>
   );
+}
+
+export async function getServerSideProps() {
+  const response = await urlClient.query(recommendedProfile).toPromise();
+
+  return {
+    props: { profiles: response?.data.recommendedProfiles },
+  };
 }

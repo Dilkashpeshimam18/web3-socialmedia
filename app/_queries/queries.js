@@ -1,14 +1,16 @@
-import { createClient } from "urql";
+import { createClient, cacheExchange, fetchExchange } from '@urql/core'
+
 
 export const APIURL = "https://api.lens.dev";
 
 export const LENS_HUB_CONTRACT_ADDRESS =
   "0xDb46d1Dc155634FbC732f92E853b10B288AD5a1d";
 
-export const urlClient = createClient({
-  url: APIURL,
-});
+  export const urlClient = createClient({
+    url: APIURL,
+    exchanges: [cacheExchange, fetchExchange],
 
+  });
 
 export const createProfile = `
 mutation CreateProfile {
@@ -109,7 +111,7 @@ mutation CreatePostTypedData {
 export const recommendedProfile = `
 query RecommendedProfiles {
   recommendedProfiles {
-   		id
+        id
       name
       bio
       attributes {
@@ -118,7 +120,7 @@ query RecommendedProfiles {
         key
         value
       }
-    	followNftAddress
+        followNftAddress
       metadata
       isDefault
       picture {

@@ -8,7 +8,7 @@ const initialPostState = {
 
 const PostSlice = createSlice({
     name: 'post',
-    initialPostState,
+    initialState:initialPostState,
     reducers: {}
 })
 

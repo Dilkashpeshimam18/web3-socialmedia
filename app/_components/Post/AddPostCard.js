@@ -1,9 +1,6 @@
-import Card from "./Card";
+import Card from "../Card";
 
 export default function PostFormCard({onPost}) {
-
-
-
 
   return (
     <Card>
