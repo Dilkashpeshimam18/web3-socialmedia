@@ -5,9 +5,9 @@ import PostCard from "./_components/PostCard"
 
 export default function Home() {
   return (
-      <Layout>
+    <Layout>
       <PostFormCard />
       <PostCard />
-      </Layout>
+    </Layout>
   )
 }
